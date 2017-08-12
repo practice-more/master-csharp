@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AboutJson
 {
@@ -15,6 +16,19 @@ namespace AboutJson
     {
         public Country Country { set; get; }
         public string Dad { set; get; }
+        public string Mum { set; get; }
+        public List<string> Children { set; get; }
+    }
+
+
+    [JsonObject(MemberSerialization.OptOut)]
+    public class FamilyEx
+    {
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Country Country { set; get; }
+        [JsonProperty(PropertyName = "Father")]
+        public string Dad { set; get; }
+        [JsonIgnore]
         public string Mum { set; get; }
         public List<string> Children { set; get; }
     }
@@ -68,7 +82,6 @@ namespace AboutJson
                 f.Mum = familyObj[nameof(Family.Mum)].ToString();
             }
 
-
             if(familyObj[nameof(Family.Children)] != null)
             {
                 JArray childrenObj = (JArray)familyObj[nameof(Family.Children)];
@@ -97,10 +110,23 @@ namespace AboutJson
             Family f1 = TestDeserializeObject(familyJson);
             
             // The result will be 
-            //{ "Dad":"Mr Brown","Mum":"Mrs Brown","Country":"US","Children":["Lily","Lucy"]
+            // { "Dad":"Mr Brown","Mum":"Mrs Brown","Country":"US","Children":["Lily","Lucy"]
             string familyJsonManual = ConstructJsonManually(f);
 
             Family f2 = ParseJsonManually(familyJsonManual);
+
+            // 进阶部分
+            FamilyEx fEx = new FamilyEx
+            {
+                Country = Country.US,
+                Dad = "Mr Brown",
+                Mum = "Mrs Brown",
+                Children = new List<string> { "Lily", "Lucy" }
+            };
+
+            // The result will be 
+            // { "Country":"US","Father":"Mr Brown","Children":["Lily","Lucy"]}
+            string familyJsonEx = JsonConvert.SerializeObject(fEx);
         }
     }
 }
