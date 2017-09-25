@@ -1,0 +1,16 @@
+﻿<Window x:Class="Async.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Async"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="button" Content="GetStringSync" HorizontalAlignment="Left" Margin="178,84,0,0" VerticalAlignment="Top" Width="105" Click="button_Click"/>
+        <Button x:Name="button_Copy" Content="GetStringAsync" HorizontalAlignment="Left" Margin="178,201,0,0" VerticalAlignment="Top" Width="105" Click="button_Copy_Click"/>
+        <TextBlock x:Name="textBlockSync" HorizontalAlignment="Left" Margin="19,118,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="19" Width="488"/>
+        <TextBlock x:Name="textBlockAsync" HorizontalAlignment="Left" Margin="19,237,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="19" Width="488"/>
+
+    </Grid>
+</Window>
