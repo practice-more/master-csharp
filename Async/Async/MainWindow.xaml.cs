@@ -31,6 +31,8 @@ namespace Async
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            // 修改textblock的文字需要在UI线程中进行，所以直接textBlockSync.Text = ""就可以了，
+            // 如果使用Task的话，需要指明，必须在UI线程或者是当前上下文中进行。
             Task showTextUITask = Task.Factory.StartNew(
                 () => { textBlockSync.Text = "You can not move the form until the function end."; }, 
                 CancellationToken.None,
